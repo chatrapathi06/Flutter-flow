@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '/index.dart';
+import '/main.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -40,6 +41,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'HomePage',
           path: '/homePage',
           builder: (context, params) => const HomePageWidget(),
+        ),
+        FFRoute(
+          name: 'WelcomeScreen',
+          path: '/welcomeScreen',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'WelcomeScreen')
+              : const WelcomeScreenWidget(),
+        ),
+        FFRoute(
+          name: 'newpage',
+          path: '/newpage',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'newpage')
+              : const NewpageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

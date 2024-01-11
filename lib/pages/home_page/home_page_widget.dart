@@ -1,3 +1,4 @@
+import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -27,7 +28,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
   }
 
   @override
@@ -62,20 +62,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                  padding: const EdgeInsets.all(6.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
                       'https://picsum.photos/seed/43/600',
-                      width: 388.0,
-                      height: 300.0,
-                      fit: BoxFit.cover,
+                      width: 373.0,
+                      height: 450.0,
+                      fit: BoxFit.fill,
                     ),
                   ),
-                ),
-                Text(
-                  'Hello World',
-                  style: FlutterFlowTheme.of(context).bodyMedium,
                 ),
               ],
             ),
@@ -124,33 +120,33 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       labelText: 'Enter Account Email',
                       labelStyle: FlutterFlowTheme.of(context).labelMedium,
                       hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                      enabledBorder: UnderlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).primaryText,
-                          width: 5.0,
+                          width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      focusedBorder: UnderlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).primaryText,
-                          width: 5.0,
+                          width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      errorBorder: UnderlineInputBorder(
+                      errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).error,
-                          width: 5.0,
+                          width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      focusedErrorBorder: UnderlineInputBorder(
+                      focusedErrorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).error,
-                          width: 5.0,
+                          width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium,
@@ -171,47 +167,106 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
-                  child: TextFormField(
-                    controller: _model.textController2,
-                    focusNode: _model.textFieldFocusNode2,
-                    autofocus: true,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'Enter Password',
-                      labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                      hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          width: 5.0,
+                  child: Autocomplete<String>(
+                    initialValue: const TextEditingValue(),
+                    optionsBuilder: (textEditingValue) {
+                      if (textEditingValue.text == '') {
+                        return const Iterable<String>.empty();
+                      }
+                      return ['Option 1'].where((option) {
+                        final lowercaseOption = option.toLowerCase();
+                        return lowercaseOption
+                            .contains(textEditingValue.text.toLowerCase());
+                      });
+                    },
+                    optionsViewBuilder: (context, onSelected, options) {
+                      return AutocompleteOptionsList(
+                        textFieldKey: _model.textFieldKey2,
+                        textController: _model.textController2!,
+                        options: options.toList(),
+                        onSelected: onSelected,
+                        textStyle: FlutterFlowTheme.of(context).bodyMedium,
+                        textHighlightStyle: const TextStyle(),
+                        elevation: 4.0,
+                        optionBackgroundColor:
+                            FlutterFlowTheme.of(context).primaryBackground,
+                        optionHighlightColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        maxHeight: 200.0,
+                      );
+                    },
+                    onSelected: (String selection) {
+                      setState(
+                          () => _model.textFieldSelectedOption2 = selection);
+                      FocusScope.of(context).unfocus();
+                    },
+                    fieldViewBuilder: (
+                      context,
+                      textEditingController,
+                      focusNode,
+                      onEditingComplete,
+                    ) {
+                      _model.textFieldFocusNode2 = focusNode;
+
+                      _model.textController2 = textEditingController;
+                      return TextFormField(
+                        key: _model.textFieldKey2,
+                        controller: textEditingController,
+                        focusNode: focusNode,
+                        onEditingComplete: onEditingComplete,
+                        autofocus: true,
+                        obscureText: !_model.passwordVisibility,
+                        decoration: InputDecoration(
+                          labelText: 'Enter Password',
+                          labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                          hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primary,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          suffixIcon: InkWell(
+                            onTap: () => setState(
+                              () => _model.passwordVisibility =
+                                  !_model.passwordVisibility,
+                            ),
+                            focusNode: FocusNode(skipTraversal: true),
+                            child: Icon(
+                              _model.passwordVisibility
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              size: 50.0,
+                            ),
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primary,
-                          width: 5.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      errorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 5.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      focusedErrorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 5.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium,
-                    validator:
-                        _model.textController2Validator.asValidator(context),
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        validator: _model.textController2Validator
+                            .asValidator(context),
+                      );
+                    },
                   ),
                 ),
               ].divide(const SizedBox(height: 20.0)),
@@ -219,10 +274,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             Align(
               alignment: const AlignmentDirectional(0.0, 1.0),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
                 child: FFButtonWidget(
+                  key: const ValueKey('LogInButton'),
                   onPressed: () async {
-                    context.pushNamed('HomePage');
+                    context.pushNamed('WelcomeScreen');
                   },
                   text: 'Log In',
                   options: FFButtonOptions(
