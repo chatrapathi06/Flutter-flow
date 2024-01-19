@@ -50,7 +50,8 @@ class _WelcomeScreenWidgetState extends State<WelcomeScreenWidget> {
       );
     }
 
-    return GestureDetector(
+    return Container(
+child: GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
           : FocusScope.of(context).unfocus(),
@@ -223,6 +224,6 @@ class _WelcomeScreenWidgetState extends State<WelcomeScreenWidget> {
           ),
         ),
       ),
-    );
+    ));
   }
 }
